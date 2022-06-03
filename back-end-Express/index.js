@@ -3,15 +3,22 @@ const app = express()
 const cors = require('cors')
 
 app.use(express.json())
-app.use(cors())
+
+app.use(cors({
+    credentials: true,
+}))
+
 
 const db = require('./models')
-
 
 const memberRouter = require('./routers/memberRouter')
 app.use("/members", memberRouter);
 
+const transactionRouter = require('./routers/transactionRouter')
+app.use("/transactions", transactionRouter);
 
+const walletRouter = require('./routers/walletRouter')
+app.use("wallet/", walletRouter)
 
 
 
