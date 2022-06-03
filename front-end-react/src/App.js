@@ -10,6 +10,10 @@ import { Test } from './components/Test';
 import Table_Member from './components/Table_Member';
 import Create_Acc from './components/Create_Acc';
 import Login from './components/Login'
+import {useState , useEffect} from 'react'
+import { Transaction } from './components/Transaction';
+import { Profile } from './components/Profile';
+import axios from 'axios';
 
 function App() {
   return (
@@ -33,10 +37,14 @@ function App() {
         <Route path="/register" element= { <Create_Acc />} />
 
         <Route path="/login" element = {<Login />} />
+        
+        <Route path="/transaction" element={ <Transaction /> } />
+
+        <Route path="/profile/{id}" element={ <Profile /> } />
 
 
-        {/* <Route path="/wallet" element={<Wallet />}/>
-        <Route path="/wallet/collected" element={<Test />}/> */}
+        <Route path="/wallet" element={<Wallet />}/>
+        <Route path="/wallet/collected" element={<Test />}/>
 
       </Routes>
 
