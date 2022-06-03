@@ -2,18 +2,17 @@ import {useState , useEffect} from 'react'
 // import { format } from 'date-fns';
 import axios from 'axios';
 
-import Create_Acc from './Create_Acc';
 
-import { Link } from 'react-router-dom';
+export const Transaction = () => {
 
-
-export const Table_Member = () => {
-
-    const [member, setMember] = useState([]);
+    const [transaction, setTransaction] = useState([]);
 
     useEffect(() => {
-        axios.get("http://localhost:4000/members").then((response) => { 
-            setMember(response.data);
+        axios.get("http://localhost:4000/transactions" , 
+
+            { headers :{ accessToken : localStorage.getItem("accessToken")}} ).then((response) => { 
+            
+                setTransaction(response.data);
         }
         )
     }, [])
@@ -49,38 +48,37 @@ export const Table_Member = () => {
 return (
     <div class="container">
 
-
-
     <div class= "container | my-4">
 
-        {/* <div style="height: 500px; width:1180px; overflow: scroll;">   */}
+        <div style={{height: "400px" , width:"1250px", overflow: "scroll"}}>  
         
         <table class="table table-bordered table-striped table-hover">
     
              <thead class="fixed table-primary text-center">
                 <tr>
                     <th>Numero</th>
-                    <th>User Name</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Email</th>
+                    {/* <th>Wallet Buyer</th> */}
+                    <th>Name of NFT</th>
+                    {/* <th>Transaction object</th>
+                    <th>Wallet Seller</th> */}
+                    <th>Amount</th>
                     <th>Created At</th>
-                    <th>Updated At</th> 
+                   
                 </tr>
             </thead>
             <tbody>
                
-                {member.map((post,key)=> (
+                {transaction.map((data,key)=> (
 
                 <tr> 
 
-                <td> {post.id} </td>
-                <td> {post.username} </td> 
-                <td> {post.first_name} </td> 
-                <td> {post.last_name} </td> 
-                <td> {post.email} </td>
-                <td> {post.createdAt} </td>
-                <td> {post.updatedAt} </td>
+                <td> {data.id} </td>
+                {/* <td> {data.transaction.wallet} </td>  */}
+                <td> {data.name_NFT} </td> 
+                {/* <td> {data.transaction.transaction_objet.label} </td> 
+                <td> {data.transaction.wallet} </td> */}
+                <td> {data.amount} </td>
+                <td> {data.createdAt} </td>
                                  </tr> )
                 )}
 
@@ -88,18 +86,12 @@ return (
             </tbody>
         </table>
 
-        
-
     </div>
-
-    <Link to="/register"> Create A New Account</Link>
-
     
-
-    
+    </div>
     </div>
     
 )
 }
 
-export default Table_Member
+export default Transaction
